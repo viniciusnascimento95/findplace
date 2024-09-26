@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Event Filter App - Next.js
+
+This project is a web application built with [Next.js](https://nextjs.org) that allows users to search and filter places for events. It aims to simplify event planning by providing a streamlined user interface for finding venues based on various filters such as location, capacity, and available dates.
+
+## Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Learn More](#learn-more)
+- [Deployment](#deployment)
+- [License](#license)
+
+## Features
+
+- 🔍 **Filter by location, date, and capacity**: Easily search for venues that match specific event criteria.
+- 🗺️ **Interactive maps**: View venue locations on an interactive map.
+- 💡 **Next.js optimizations**: Leveraging server-side rendering (SSR) and static site generation (SSG) for fast performance.
+- 🎨 **Responsive UI**: A clean and responsive interface for mobile and desktop users.
+- 🚀 **Deployed on Vercel**: Easily deployable for production use.
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy of the project up and running, follow these simple steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure you have Node.js installed. You can download it [here](https://nodejs.org).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/viniciusnascimento95/findplace.git
+    cd findplace
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3. Run the development server:
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    ```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+
+### Usage
+
+You can start modifying the app by editing `app/page.tsx`. The page auto-updates as you edit.
+
+- Customize venue filters in `components/FilterForm.tsx`.
+- Adjust venue listing in `components/VenueList.tsx`.
+- Explore the interactive map in `components/MapView.tsx`.
+
+## Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. Fork the repository.
+2. Create your feature branch: `git checkout -b feature/your-feature-name`.
+3. Commit your changes: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin feature/your-feature-name`.
+5. Open a pull request.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the technologies used in this project, check out these resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and APIs.
+- [Learn Next.js](https://nextjs.org/learn) - A great tutorial to get started.
+- [React Documentation](https://reactjs.org/) - Learn about React, the library Next.js is built on.
+  
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app can be easily deployed on the [Vercel Platform](https://vercel.com) (recommended for Next.js projects):
 
-## Deploy on Vercel
+1. Create a Vercel account [here](https://vercel.com/signup).
+2. Connect your GitHub repository.
+3. Deploy directly from Vercel or with the following CLI commands:
+    ```bash
+    vercel
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For more details, visit the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
