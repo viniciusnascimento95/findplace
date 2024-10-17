@@ -69,11 +69,12 @@ export default function Home() {
 
 
             Formulário <br />
-            {formData !== {} ? '' : JSON.stringify(formData)}
+            {JSON.stringify(formData)}
           </p>
 
           <form onSubmit={formik.handleSubmit} className="max-w-lg p-4 bg-white shadow-md rounded-lg">
             <div className="mb-4 text-left">
+              {JSON.stringify(formik.errors, null, 2)}
               <label htmlFor="eventName" className="block text-gray-700">Nome do Evento</label>
               <input
                 id="eventName"
