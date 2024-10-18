@@ -89,7 +89,6 @@ export default function Home() {
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to deploy your app
-
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Formulário <br />
@@ -156,14 +155,14 @@ export default function Home() {
             }}
           >
             {({ isSubmitting, handleBlur, isValid, setFieldValue }) => (
-              <Form className="max-w-xx p-4 bg-white shadow-md rounded-lg">
+              <Form className="max-w-xx p-5 bg-white shadow-md rounded-lg">
                 {/* <p className="text-gray-700">Erros: {JSON.stringify(errors, null, 2)}</p> */}
                 <div className="mb-4 text-left">
-                  <label htmlFor="eventName" className="block text-gray-700">Nome do Evento</label>                 
-                  
+                  <label htmlFor="eventName" className="block text-gray-700">Nome do Evento</label>
+
                   <Field
                     name="eventName"
-                    placeholder="Nome do evento"
+                    placeholder="Digite o nome do evento (ex.: Workshop de Criatividade em Grupo)"
                     onBlur={handleBlur}
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
@@ -176,6 +175,8 @@ export default function Home() {
                     as="textarea"
                     id="description"
                     name="description"
+                    rows="5"
+                    placeholder="Exemplo: 'Descrição do workshop de desenvolvimento pessoal, com foco em habilidades de comunicação e networking.'"
                     onBlur={handleBlur}
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
@@ -216,6 +217,7 @@ export default function Home() {
                       <Field
                         id="postalCode"
                         name="postalCode"
+                        placeholder="Digite seu CEP"
                         type="text"
                         className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                         onBlur={async (e: React.FocusEvent<HTMLInputElement>) => {
@@ -394,13 +396,19 @@ export default function Home() {
 
         <div className='container flex m-5'>
           {savedEvents.map((event, index) => (
-            <div key={index} className="bg-white shadow-md rounded-lg p-6 mb-6 mr-3 border border-gray-200">
+            <div key={index} className="bg-white shadow-md rounded-lg p-6 mb-6 mr-3 border border-gray-200 relative">
+              {/* Botão de remoção com "X" */}
+              <button
+                type="button"
+                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-red-500 hover:bg-red-100 hover:text-red-700 rounded-full transition-colors duration-200"
+                onClick={() => removeItem(index)}
+                style={{}}
+              >
+                &times; {/* Caractere "X" */}
+              </button>
+
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{event.eventName || "Evento sem nome"}</h2>
               <p className="text-gray-600 mb-4">{event.description || "Sem descrição disponível"}</p>
-
-              <button type="button"
-                className="mt-4 mb-4 w-40 bg-red-500 text-white py-2 rounded-md hover:bg-blue-600"
-                onClick={() => removeItem(index)}>Removendo item</button>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -415,7 +423,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4 border-t border-gray-200 pt-4">
                 <p><span className="font-bold">Capacidade:</span> {event.capacity || "Sem capacidade"}</p>
                 <p><span className="font-bold">Tipo de Evento:</span> {event.eventType || "Sem tipo de evento"}</p>
                 <p><span className="font-bold">Acessibilidade:</span> {event.accessibility || "Não informado"}</p>
@@ -429,8 +437,8 @@ export default function Home() {
               </div>
             </div>
           ))}
-
         </div>
+
       </div>
     </div>
   );
