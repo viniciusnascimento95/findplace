@@ -1,6 +1,7 @@
 "use client";
 
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 interface Values {
@@ -22,17 +23,24 @@ interface Values {
   organizerPhone: string
 }
 
-interface ErrorMessageProps {
-  touched: boolean | undefined;
-  error: string | undefined;
-}
-
-
 export default function Home() {
 
-  const ErrorMessage = ({ touched, error }: ErrorMessageProps) => (
-    touched && error ? <div className="text-red-500 text-sm">{error}</div> : null
-  );
+  const [savedEvents, setSavedEvents] = useState([]);
+
+  useEffect(() => {
+    const storedEvents = localStorage.getItem('events');
+    if (storedEvents) {
+      setSavedEvents(JSON.parse(storedEvents));
+    }
+  }, []);
+
+  const saveEvent = (values: Values) => {
+    const events = JSON.parse(localStorage.getItem('events') || '[]');
+    events.push(values);
+    localStorage.setItem('events', JSON.stringify(events));
+    setSavedEvents(events);
+  };
+
 
   return (
     <div className="bg-white py-24 sm:py-32">
@@ -43,7 +51,6 @@ export default function Home() {
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to deploy your app
-
 
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
@@ -98,24 +105,23 @@ export default function Home() {
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
                 setSubmitting(false);
+                saveEvent(values);
               }, 500);
             }}
           >
-            {({ isSubmitting, touched, errors, values, handleBlur, handleChange }) => (
-              <Form className="max-w-lg p-4 bg-white shadow-md rounded-lg">
-                <p className="text-gray-700">{JSON.stringify(errors, null, 2)}</p>
+            {({ isSubmitting, errors, values, handleBlur, handleChange, isValid }) => (
+              <Form className="max-w-xx p-4 bg-white shadow-md rounded-lg">
+                <p className="text-gray-700">Erros: {JSON.stringify(errors, null, 2)}</p>
                 <div className="mb-4 text-left">
-                  <label htmlFor="eventName" className="block text-gray-700">Nome do Evento</label>
-                  <p className="block text-gray-700"> {JSON.stringify(values)}</p>
+                  <label htmlFor="eventName" className="block text-gray-700">Dados</label>
+                  <p className="block text-gray-700"> {JSON.stringify(values, null ,2)}</p>
                   <Field
                     name="eventName"
                     placeholder="Nome do evento"
                     onBlur={handleBlur}
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.eventName && errors.eventName && (
-                    <div className="text-red-500 text-sm">{errors.eventName}</div>
-                  )}
+                  <ErrorMessage name="eventName" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
@@ -127,9 +133,7 @@ export default function Home() {
                     onBlur={handleBlur}
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.description && errors.description && (
-                    <div className="text-red-500 text-sm">{errors.description}</div>
-                  )}
+                  <ErrorMessage name="description" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className='flex flex-row'>
@@ -158,88 +162,98 @@ export default function Home() {
 
                 <div className="mb-4 text-left">
                   <label htmlFor="postalCode" className="block text-gray-700">CEP</label>
-                  <input
+                  <Field
                     id="postalCode"
                     name="postalCode"
                     type="text"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.postalCode && errors.postalCode ? (
-                    <div className="text-red-500 text-sm">{errors.postalCode}</div>
-                  ) : null}
+                 
+                  <ErrorMessage name="postalCode" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="address" className="block text-gray-700">Endereço</label>
-                  <input
+                  <Field
                     id="address"
                     name="address"
                     type="text"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-
                   />
-                  {touched.address && errors.address ? (
-                    <div className="text-red-500 text-sm">{errors.address}</div>
-                  ) : null}
+                  <ErrorMessage name="address" component="div" className="text-red-500 text-sm" />
+                </div>
+
+                <div className="mb-4 text-left">
+                  <label htmlFor="address" className="block text-gray-700">Número</label>
+                  <Field
+                    id="number"
+                    name="number"
+                    type="text"
+                    className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  />
+                  <ErrorMessage name="number" component="div" className="text-red-500 text-sm" />
+                </div>
+
+                <div className="mb-4 text-left">
+                  <label htmlFor="address" className="block text-gray-700">Bairro</label>
+                  <Field
+                    id="neighborhood"
+                    name="neighborhood"
+                    type="text"
+                    className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  />
+                  <ErrorMessage name="neighborhood" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="city" className="block text-gray-700">Cidade</label>
-                  <input
+                  <Field
                     id="city"
                     name="city"
                     type="text"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.city && errors.city ? (
-                    <div className="text-red-500 text-sm">{errors.city}</div>
-                  ) : null}
+                  <ErrorMessage name="city" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="state" className="block text-gray-700">Estado</label>
-                  <input
+                  <Field
                     id="state"
                     name="state"
                     type="text"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.state && errors.state ? (
-                    <div className="text-red-500 text-sm">{errors.state}</div>
-                  ) : null}
+                  <ErrorMessage name="state" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="capacity" className="block text-gray-700">Capacidade de pessoas</label>
-                  <input
+                  <Field
                     id="capacity"
                     name="capacity"
                     type="number"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.capacity && errors.capacity ? (
-                    <div className="text-red-500 text-sm">{errors.capacity}</div>
-                  ) : null}
+                  <ErrorMessage name="capacity" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="eventType" className="block text-gray-700">Tipo de Evento</label>
-                  <input
+                  <Field
                     id="eventType"
                     name="eventType"
-                    type="number"
+                    type="text"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  {touched.eventType && errors.eventType ? (
-                    <div className="text-red-500 text-sm">{errors.eventType}</div>
-                  ) : null}
+                  <ErrorMessage name="eventType" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label className="block text-gray-700 mb-2">O local é acessível?</label>
                   <div className="flex items-center space-x-4">
                     <label className="inline-flex items-center">
-                      <input
+                      <Field
                         type="radio"
                         name="accessibility"
                         value="SIM"
@@ -251,7 +265,7 @@ export default function Home() {
                       <span className="ml-2 text-gray-700">Sim</span>
                     </label>
                     <label className="inline-flex items-center">
-                      <input
+                      <Field
                         type="radio"
                         name="accessibility"
                         value="NAO"
@@ -263,57 +277,53 @@ export default function Home() {
                       <span className="ml-2 text-gray-700">Não</span>
                     </label>
                   </div>
-                  {touched.accessibility && errors.accessibility ? (
-                    <div className="text-red-500 text-sm">{errors.accessibility}</div>
-                  ) : null}
+
+                  <ErrorMessage name="accessibility" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="organizerName" className="block text-gray-700">Organizadora</label>
-                  <input
+                  <Field
                     id="organizerName"
                     name="organizerName"
                     type="text"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
 
                   />
-                  {touched.organizerName && errors.organizerName ? (
-                    <div className="text-red-500 text-sm">{errors.organizerName}</div>
-                  ) : null}
+
+                  <ErrorMessage name="organizerName" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="organizerEmail" className="block text-gray-700">E-mail Organizadora</label>
-                  <input
+                  <Field
                     id="organizerEmail"
                     name="organizerEmail"
                     type="email"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
 
                   />
-                  {touched.organizerEmail && errors.organizerEmail ? (
-                    <div className="text-red-500 text-sm">{errors.organizerEmail}</div>
-                  ) : null}
+
+                  <ErrorMessage name="organizerEmail" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="mb-4 text-left">
                   <label htmlFor="organizerPhone" className="block text-gray-700">Contato Organizadora</label>
-                  <input
+                  <Field
                     id="organizerPhone"
                     name="organizerPhone"
                     type="tel"
                     className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
 
                   />
-                  {touched.organizerPhone && errors.organizerPhone ? (
-                    <div className="text-red-500 text-sm">{errors.organizerPhone}</div>
-                  ) : null}
+
+                  <ErrorMessage name="organizerPhone" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <button
                   type="submit"
                   className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !isValid}
                 >
                   {isSubmitting ? 'Enviando...' : 'Salvar'}
                 </button>
@@ -321,6 +331,13 @@ export default function Home() {
             )}
           </Formik>
         </div>
+
+
+        {savedEvents.map((event, index) => (
+          <div key={index}>
+            <p>{JSON.stringify(event, null, 2)}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
