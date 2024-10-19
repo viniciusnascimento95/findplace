@@ -4,11 +4,27 @@ import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
+interface Infrastructure {
+  airConditioning: boolean;
+  wifi: boolean;
+  parking: boolean;
+  wheelchairAccess: boolean;
+  restrooms: boolean;
+  kitchenBuffetArea: boolean;
+}
+
+interface Equipment {
+  projector: boolean;
+  soundSystem: boolean;
+  microphones: boolean;
+  tablesAndChairs: boolean;
+  specialLighting: boolean;
+}
 interface Values {
   eventName: string
   description: string
-  startDate: string
-  endDate: string
+  // startDate: string
+  // endDate: string
   address: string
   number: string
   neighborhood: string
@@ -21,6 +37,9 @@ interface Values {
   organizerName: string
   organizerEmail: string
   organizerPhone: string
+
+  infrastructure: Infrastructure;
+  equipment: Equipment;
 }
 
 export default function Home() {
@@ -91,7 +110,7 @@ export default function Home() {
             Everything you need to deploy your app
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Formulário <br />
+            Formulário cadastro do espaço <br />
           </p>
 
           <hr />
@@ -100,8 +119,8 @@ export default function Home() {
             initialValues={{
               eventName: '',
               description: '',
-              startDate: '',
-              endDate: '',
+              // startDate: '', desativado pois nesse modulo não vamos precisar no momento
+              // endDate: '', desativado pois nesse modulo não vamos precisar no momento
               address: '',
               number: '',
               neighborhood: '',
@@ -114,20 +133,35 @@ export default function Home() {
               organizerName: '',
               organizerEmail: '',
               organizerPhone: '',
+              infrastructure: {
+                airConditioning: false,
+                wifi: false,
+                parking: false,
+                wheelchairAccess: false,
+                restrooms: false,
+                kitchenBuffetArea: false,
+              },
+              equipment: {
+                projector: false,
+                soundSystem: false,
+                microphones: false,
+                tablesAndChairs: false,
+                specialLighting: false,
+              },
             }}
             validationSchema={Yup.object({
               eventName: Yup.string().required('O nome do evento é obrigatório'),
               description: Yup.string().required('A descrição é obrigatória'),
-              startDate: Yup.date()
-                .required('Data de início é obrigatória'),
-              //.nullable(),
-              endDate: Yup.date()
-                .required('Data de término é obrigatória')
-                //.nullable(),
-                .min(
-                  Yup.ref('startDate'),
-                  'A data de término deve ser posterior à data de início'
-                ),
+              // startDate: Yup.date()
+              //   .required('Data de início é obrigatória'),
+              // //.nullable(),
+              // endDate: Yup.date()
+              //   .required('Data de término é obrigatória')
+              //   //.nullable(),
+              //   .min(
+              //     Yup.ref('startDate'),
+              //     'A data de término deve ser posterior à data de início'
+              //   ),
               address: Yup.string().required('Endereço é obrigatório'),
               number: Yup.string().required('Número é obrigatório'),
               neighborhood: Yup.string().required('Bairro é obrigatório'),
@@ -158,7 +192,7 @@ export default function Home() {
               <Form className="max-w-xx p-5 bg-white shadow-md rounded-lg">
                 {/* <p className="text-gray-700">Erros: {JSON.stringify(errors, null, 2)}</p> */}
                 <div className="mb-4 text-left">
-                  <label htmlFor="eventName" className="block text-gray-700">Nome do Evento</label>
+                  <label htmlFor="eventName" className="block text-gray-700">Nome do espaço</label>
 
                   <Field
                     name="eventName"
@@ -170,7 +204,7 @@ export default function Home() {
                 </div>
 
                 <div className="mb-4 text-left">
-                  <label htmlFor="description" className="block text-gray-700">Descrição do Evento</label>
+                  <label htmlFor="description" className="block text-gray-700">Descrição do espaço</label>
                   <Field
                     as="textarea"
                     id="description"
@@ -183,7 +217,7 @@ export default function Home() {
                   <ErrorMessage name="description" component="div" className="text-red-500 text-sm" />
                 </div>
 
-                <div className='flex flex-row'>
+                {/* <div className='flex flex-row'>
                   <div className="mb-4 text-left basis-1/4 mr-3">
                     <label htmlFor="startDate" className="block text-gray-700">Data de Início</label>
                     <Field
@@ -204,6 +238,121 @@ export default function Home() {
                       className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                     <ErrorMessage name="endDate" component="div" className="text-red-500 text-sm" />
+                  </div>
+                </div> */}
+
+                <hr className='my-2' />
+
+                <div className="flex flex-wrap mb-4 justify-between">
+                  {/* Seção Infraestrutura */}
+                  <div className="text-left basis-1/2 lg:basis-1/4 mr-3 ">
+                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Infraestrutura</h3>
+                    <div className="mt-2 space-y-2">
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="infrastructure.airConditioning"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Ar-condicionado</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="infrastructure.wifi"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Wi-Fi</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="infrastructure.parking"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Estacionamento</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="infrastructure.wheelchairAccess"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Acessibilidade para cadeirantes</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="infrastructure.restrooms"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Banheiros</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="infrastructure.kitchenBuffetArea"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Cozinha ou área para buffet</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Seção Equipamentos */}
+                  <div className="text-left basis-1/2 lg:basis-1/4 mr-3">
+                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Equipamentos</h3>
+                    <div className="mt-2 space-y-2">
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="equipment.projector"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Projetor</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="equipment.soundSystem"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Sistema de som</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="equipment.microphones"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Microfones</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="equipment.tablesAndChairs"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Mesas e cadeiras</span>
+                      </label>
+
+                      <label className="flex items-center">
+                        <Field
+                          type="checkbox"
+                          name="equipment.specialLighting"
+                          className="form-checkbox text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="ml-2 text-gray-700">Iluminação especial</span>
+                      </label>
+                    </div>
                   </div>
                 </div>
 
@@ -394,29 +543,26 @@ export default function Home() {
         </div>
 
 
-        <div className='container flex m-5'>
+        <div className="container flex m-5 flex-wrap">
           {savedEvents.map((event, index) => (
-            <div key={index} className="bg-white shadow-md rounded-lg p-6 mb-6 mr-3 border border-gray-200 relative">
+            <div key={index} className="bg-white shadow-md rounded-lg p-6 mb-6 mr-3 border border-gray-200 relative max-w-md">
               {/* Botão de remoção com "X" */}
               <button
                 type="button"
                 className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-red-500 hover:bg-red-100 hover:text-red-700 rounded-full transition-colors duration-200"
                 onClick={() => removeItem(index)}
-                style={{}}
               >
-                &times; {/* Caractere "X" */}
+                &times;
               </button>
 
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{event.eventName || "Evento sem nome"}</h2>
               <p className="text-gray-600 mb-4">{event.description || "Sem descrição disponível"}</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <p><span className="font-bold">Data de Início:</span> {new Date(event.startDate).toLocaleString()}</p>
-                  <p><span className="font-bold">Data de Término:</span> {new Date(event.endDate).toLocaleString()}</p>
-                </div>
-                <div>
-                  <p><span className="font-bold">Local:</span> {event.address || "Sem endereço"}, {event.number}</p>
+                  <p>
+                    <span className="font-bold">Local:</span> {event.address || "Sem endereço"}, {event.number || "S/N"}
+                  </p>
                   <p><span className="font-bold">Bairro:</span> {event.neighborhood || "Sem bairro"}</p>
                   <p><span className="font-bold">Cidade:</span> {event.city || "Sem cidade"}, {event.state || "Sem estado"}</p>
                   <p><span className="font-bold">CEP:</span> {event.postalCode || "Sem CEP"}</p>
@@ -435,9 +581,35 @@ export default function Home() {
                 <p><span className="font-bold">Email:</span> {event.organizerEmail || "Sem email"}</p>
                 <p><span className="font-bold">Telefone:</span> {event.organizerPhone || "Sem telefone"}</p>
               </div>
+
+              <div className="mt-4 border-t border-gray-200 pt-4">
+                <h3 className="font-semibold text-gray-800">Infraestrutura Disponível:</h3>
+                <ul className="list-disc pl-5">
+                  {event.infrastructure.airConditioning && <li>Ar-condicionado</li>}
+                  {event.infrastructure.wifi && <li>Wi-Fi</li>}
+                  {event.infrastructure.parking && <li>Estacionamento</li>}
+                  {event.infrastructure.wheelchairAccess && <li>Acessibilidade para cadeirantes</li>}
+                  {event.infrastructure.restrooms && <li>Banheiros</li>}
+                  {event.infrastructure.kitchenBuffetArea && <li>Cozinha ou área para buffet</li>}
+                  {/* {event.infrastructure.tables && <li>Mesas</li>}
+                  {event.infrastructure.chairs && <li>Cadeiras</li>} */}
+                </ul>
+              </div>
+
+              <div className="mt-4 border-t border-gray-200 pt-4">
+                <h3 className="font-semibold text-gray-800">Equipamentos Disponíveis:</h3>
+                <ul className="list-disc pl-5">
+                  {event.equipment.projector && <li>Projetor</li>}
+                  {event.equipment.soundSystem && <li>Sistema de som</li>}
+                  {event.equipment.microphones && <li>Microfones</li>}
+                  {event.equipment.tablesAndChairs && <li>Mesas e cadeiras</li>}
+                  {event.equipment.specialLighting && <li>Iluminação especial</li>}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
+
 
       </div>
     </div>
