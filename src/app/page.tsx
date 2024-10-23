@@ -1,6 +1,7 @@
 "use client";
 
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
@@ -102,6 +103,39 @@ export default function Home() {
   return (
     <div className="bg-gray-200 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-10">
+          <div className="px-6 py-4">
+            <h1 className="text-xl font-semibold text-gray-800">Bem-vindo à Aplicação!</h1>
+            <p className="text-gray-600 mt-2">
+              Acesse as páginas de login, criação de conta ou volte para a página inicial.
+            </p>
+          </div>
+          <div className="px-6 py-4">
+            {/* Link para a Home */}
+            <Link
+              href="/"
+              className="block w-full text-center bg-blue-700 text-white font-bold py-2 rounded-md mt-2 hover:bg-blue-600"
+            >
+              Página Inicial (Você está nessa página)
+            </Link>
+
+            {/* Link para a página de Login */}
+            <Link
+              href="/login"
+              className="block w-full text-center bg-blue-500 text-white font-bold py-2 rounded-md mt-2 hover:bg-blue-600"
+            >
+              Login
+            </Link>
+
+            {/* Link para a página de Criação de Conta */}
+            <Link
+              href="/signUp"
+              className="block w-full text-center bg-blue-500 text-white font-bold py-2 rounded-md mt-2 hover:bg-blue-600"
+            >
+              Criar Conta
+            </Link>
+          </div>
+        </div>
         <div className="mx-auto max-w-2xl lg:text-left">
           <h2 className="text-base font-semibold leading-7 text-indigo-600">
             Deploy faster fest-fy.com
@@ -112,6 +146,8 @@ export default function Home() {
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Formulário cadastro do espaço <br />
           </p>
+
+
 
           <hr />
           <br />
@@ -560,31 +596,31 @@ export default function Home() {
 
               <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <p>
-                    <span className="font-bold">Local:</span> {event.address || "Sem endereço"}, {event.number || "S/N"}
+                  <p className='text-gray-500'>
+                    <span className="font-bold text-gray-900">Local:</span> {event.address || "Sem endereço"}, {event.number || "S/N"}
                   </p>
-                  <p><span className="font-bold">Bairro:</span> {event.neighborhood || "Sem bairro"}</p>
-                  <p><span className="font-bold">Cidade:</span> {event.city || "Sem cidade"}, {event.state || "Sem estado"}</p>
-                  <p><span className="font-bold">CEP:</span> {event.postalCode || "Sem CEP"}</p>
+                  <p className='text-gray-500'><span className="font-bold text-gray-900">Bairro:</span> {event.neighborhood || "Sem bairro"}</p>
+                  <p className='text-gray-500'><span className="font-bold text-gray-900">Cidade:</span> {event.city || "Sem cidade"}, {event.state || "Sem estado"}</p>
+                  <p className='text-gray-500'><span className="font-bold text-gray-900">CEP:</span> {event.postalCode || "Sem CEP"}</p>
                 </div>
               </div>
 
               <div className="mt-4 border-t border-gray-200 pt-4">
-                <p><span className="font-bold">Capacidade:</span> {event.capacity || "Sem capacidade"}</p>
-                <p><span className="font-bold">Tipo de Evento:</span> {event.eventType || "Sem tipo de evento"}</p>
-                <p><span className="font-bold">Acessibilidade:</span> {event.accessibility || "Não informado"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Capacidade:</span> {event.capacity || "Sem capacidade"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Tipo de Evento:</span> {event.eventType || "Sem tipo de evento"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Acessibilidade:</span> {event.accessibility || "Não informado"}</p>
               </div>
 
               <div className="mt-4 border-t border-gray-200 pt-4">
                 <h3 className="font-semibold text-gray-800">Organizador:</h3>
-                <p><span className="font-bold">Nome:</span> {event.organizerName || "Sem nome"}</p>
-                <p><span className="font-bold">Email:</span> {event.organizerEmail || "Sem email"}</p>
-                <p><span className="font-bold">Telefone:</span> {event.organizerPhone || "Sem telefone"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Nome:</span> {event.organizerName || "Sem nome"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Email:</span> {event.organizerEmail || "Sem email"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Telefone:</span> {event.organizerPhone || "Sem telefone"}</p>
               </div>
 
               <div className="mt-4 border-t border-gray-200 pt-4">
                 <h3 className="font-semibold text-gray-800">Infraestrutura Disponível:</h3>
-                <ul className="list-disc pl-5">
+                <ul className="list-disc pl-5 text-gray-500">
                   {event.infrastructure.airConditioning && <li>Ar-condicionado</li>}
                   {event.infrastructure.wifi && <li>Wi-Fi</li>}
                   {event.infrastructure.parking && <li>Estacionamento</li>}
@@ -598,7 +634,7 @@ export default function Home() {
 
               <div className="mt-4 border-t border-gray-200 pt-4">
                 <h3 className="font-semibold text-gray-800">Equipamentos Disponíveis:</h3>
-                <ul className="list-disc pl-5">
+                <ul className="list-disc pl-5 text-gray-500">
                   {event.equipment.projector && <li>Projetor</li>}
                   {event.equipment.soundSystem && <li>Sistema de som</li>}
                   {event.equipment.microphones && <li>Microfones</li>}
