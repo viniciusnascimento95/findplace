@@ -81,7 +81,10 @@ export default function Home() {
 
   function removeItem(index: number): void {
     // Obter a lista de eventos do localStorage e convertê-la em um array
-    const events = JSON.parse(localStorage.getItem('events') || '[]');
+    let events = [];
+    if (typeof window !== 'undefined') {
+      events = JSON.parse(localStorage.getItem('events') || '[]');
+    }
 
     // Verificar se o index está dentro do intervalo válido
     if (index >= 0 && index < events.length) {
@@ -646,8 +649,8 @@ export default function Home() {
           ))}
         </div>
 
-
       </div>
     </div>
   );
 }
+
