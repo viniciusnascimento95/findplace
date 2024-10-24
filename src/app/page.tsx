@@ -35,9 +35,6 @@ interface Values {
   capacity: string
   eventType: string
   accessibility: string
-  organizerName: string
-  organizerEmail: string
-  organizerPhone: string
 
   infrastructure: Infrastructure;
   equipment: Equipment;
@@ -169,9 +166,6 @@ export default function Home() {
               capacity: '',
               eventType: '',
               accessibility: '',
-              organizerName: '',
-              organizerEmail: '',
-              organizerPhone: '',
               infrastructure: {
                 airConditioning: false,
                 wifi: false,
@@ -209,11 +203,6 @@ export default function Home() {
               postalCode: Yup.string().required('CEP é obrigatório'),
               capacity: Yup.number().required('Capacidade é obrigatória'),
               eventType: Yup.string().required('Tipo de evento é obrigatório'),
-              organizerName: Yup.string().required('Nome do organizador é obrigatório'),
-              organizerEmail: Yup.string()
-                .email('E-mail inválido')
-                .required('E-mail do organizador é obrigatório'),
-              organizerPhone: Yup.string().required('Telefone do organizador é obrigatório'),
             })}
             onSubmit={(
               values: Values,
@@ -345,7 +334,7 @@ export default function Home() {
 
                   {/* Seção Equipamentos */}
                   <div className="text-left basis-1/2 lg:basis-1/4 mr-3">
-                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Equipamentos</h3>
+                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Fornecedores Exclusivos</h3>
                     <div className="mt-2 space-y-2">
                       <label className="flex items-center">
                         <Field
@@ -529,46 +518,6 @@ export default function Home() {
                   <ErrorMessage name="accessibility" component="div" className="text-red-500 text-sm" />
                 </div>
 
-                <hr className='my-2' />
-                <div className='flex flex-row gap-4'>
-                  <div className="mb-4 text-left basis-1/3">
-                    <label htmlFor="organizerName" className="block text-gray-700">Organizadora</label>
-                    <Field
-                      id="organizerName"
-                      name="organizerName"
-                      type="text"
-                      placeholder="Nome da organizadora"
-                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                    />
-                    <ErrorMessage name="organizerName" component="div" className="text-red-500 text-sm" />
-                  </div>
-
-                  <div className="mb-4 text-left basis-1/3">
-                    <label htmlFor="organizerEmail" className="block text-gray-700">E-mail Organizadora</label>
-                    <Field
-                      id="organizerEmail"
-                      name="organizerEmail"
-                      type="email"
-                      placeholder="exemplo@email.com"
-                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                    />
-                    <ErrorMessage name="organizerEmail" component="div" className="text-red-500 text-sm" />
-                  </div>
-
-                  <div className="mb-4 text-left basis-1/3">
-                    <label htmlFor="organizerPhone" className="block text-gray-700">Contato Organizadora</label>
-                    <Field
-                      id="organizerPhone"
-                      name="organizerPhone"
-                      type="tel"
-                      placeholder="(XX) XXXXX-XXXX"
-                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                    />
-                    <ErrorMessage name="organizerPhone" component="div" className="text-red-500 text-sm" />
-                  </div>
-                </div>
-
-
                 <button
                   type="submit"
                   className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
@@ -615,13 +564,6 @@ export default function Home() {
               </div>
 
               <div className="mt-4 border-t border-gray-200 pt-4">
-                <h3 className="font-semibold text-gray-800">Organizador:</h3>
-                <p className='text-gray-500'><span className="font-bold text-gray-900">Nome:</span> {event.organizerName || "Sem nome"}</p>
-                <p className='text-gray-500'><span className="font-bold text-gray-900">Email:</span> {event.organizerEmail || "Sem email"}</p>
-                <p className='text-gray-500'><span className="font-bold text-gray-900">Telefone:</span> {event.organizerPhone || "Sem telefone"}</p>
-              </div>
-
-              <div className="mt-4 border-t border-gray-200 pt-4">
                 <h3 className="font-semibold text-gray-800">Infraestrutura Disponível:</h3>
                 <ul className="list-disc pl-5 text-gray-500">
                   {event.infrastructure.airConditioning && <li>Ar-condicionado</li>}
@@ -636,7 +578,7 @@ export default function Home() {
               </div>
 
               <div className="mt-4 border-t border-gray-200 pt-4">
-                <h3 className="font-semibold text-gray-800">Equipamentos Disponíveis:</h3>
+                <h3 className="font-semibold text-gray-800">Fornecedores Exclusivos Disponíveis:</h3>
                 <ul className="list-disc pl-5 text-gray-500">
                   {event.equipment.projector && <li>Projetor</li>}
                   {event.equipment.soundSystem && <li>Sistema de som</li>}
