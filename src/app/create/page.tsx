@@ -1,7 +1,6 @@
 "use client";
 
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
@@ -101,56 +100,28 @@ export default function Home() {
 
 
   return (
-    <div className="bg-gray-200 py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-10">
-          <div className="px-6 py-4">
+    <div className="bg-gray-200 py-20 sm:py-16 ">
+      <div className="mx-auto max-w-7xl lg:px-8">
+        <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+          {/* <div className="px-6 py-4">
             <h1 className="text-xl font-semibold text-gray-800">Bem-vindo à Aplicação!</h1>
             <p className="text-gray-600 mt-2">
               Acesse as páginas de login, criação de conta ou volte para a página inicial.
             </p>
-          </div>
-          <div className="px-6 py-4">
-            {/* Link para a Home */}
-            <Link
-              href="/"
-              className="block w-full text-center bg-blue-700 text-white font-bold py-2 rounded-md mt-2 hover:bg-blue-600"
-            >
-              Página Inicial (Você está nessa página)
-            </Link>
-
-            {/* Link para a página de Login */}
-            <Link
-              href="/login"
-              className="block w-full text-center bg-blue-500 text-white font-bold py-2 rounded-md mt-2 hover:bg-blue-600"
-            >
-              Login
-            </Link>
-
-            {/* Link para a página de Criação de Conta */}
-            <Link
-              href="/signUp"
-              className="block w-full text-center bg-blue-500 text-white font-bold py-2 rounded-md mt-2 hover:bg-blue-600"
-            >
-              Criar Conta
-            </Link>
-          </div>
+          </div> */}
+          
         </div>
         <div className="mx-auto max-w-2xl lg:text-left">
           <h2 className="text-base font-semibold leading-7 text-indigo-600">
-            Deploy faster fest-fy.com
+          Formulário cadastro do espaço - fest-fy.com
           </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          {/* <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to deploy your app fest-fy.com
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Formulário cadastro do espaço <br />
-          </p>
-
-
-
-          <hr />
-          <br />
+          </p> */}
+         
           <Formik
             initialValues={{
               eventName: '',
