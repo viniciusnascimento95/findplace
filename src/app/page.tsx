@@ -3,55 +3,33 @@
 export default function Home() {
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Menu Lateral */}
-      <aside className="w-64 bg-gray-800 text-gray-100">
-        <div className="p-6 font-bold text-teal-500 text-2xl">
-          fest-fy.com
+    <div className="flex justify-center h-screen bg-gray-50">
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-50 text-gray-700">
+        <div className="text-center bg-white rounded-lg shadow-lg">
+          <h1 className="text-4xl font-semibold text-teal-500 mb-4">Em Desenvolvimento</h1>
+          <p className="text-lg text-gray-600 mb-6">
+            Estamos trabalhando duro para trazer essa funcionalidade em breve!
+          </p>
+          <svg
+            className="w-24 h-24 text-blue-500 mx-auto animate-bounce"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M8 17l4 4 4-4m0-5v9M4 4h16v2H4z"
+            />
+          </svg>
         </div>
-        <nav>
-          <ul>
-            <li className="px-4 py-2 hover:bg-teal-500 hover:text-white">
-              Dashboard
-            </li>
-            <li className="px-4 py-2 hover:bg-teal-500 hover:text-white">
-              Espaços
-            </li>
-            <li className="px-4 py-2 hover:bg-teal-500 hover:text-white">
-              Reservas
-            </li>
-            <li className="px-4 py-2 hover:bg-teal-500 hover:text-white">
-              Usuários
-            </li>
-            <li className="px-4 py-2 hover:bg-teal-500 hover:text-white">
-              Configurações
-            </li>
-          </ul>
-        </nav>
-      </aside>
+        <p className="mt-6 text-gray-500">
+          Volte em breve para novidades!
+        </p>
+      </div>
 
-      {/* Conteúdo Principal */}
-      <main className="flex-1 p-8">
-        <header className="text-3xl font-semibold text-gray-700 mb-8">
-          Dashboard
-        </header>
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Cards de exemplo */}
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-xl font-medium text-teal-600">Espaços Disponíveis</h2>
-            <p className="mt-4 text-gray-600">Gerencie e visualize os espaços para eventos.</p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-xl font-medium text-teal-600">Reservas Recentes</h2>
-            <p className="mt-4 text-gray-600">Veja as últimas reservas confirmadas.</p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-xl font-medium text-teal-600">Estatísticas de Uso</h2>
-            <p className="mt-4 text-gray-600">Acompanhe as estatísticas de uso da plataforma.</p>
-          </div>
-        </section>
-        
-      </main>
     </div>
   );
 }
