@@ -31,7 +31,9 @@ interface Values {
   city: string
   state: string
   postalCode: string
-  capacity: string
+  capacityTotal: string,
+  capacityStanding: string,
+  capacityDinner: string,
   eventType: string
   accessibility: string
 
@@ -109,11 +111,11 @@ export default function Home() {
               Acesse as páginas de login, criação de conta ou volte para a página inicial.
             </p>
           </div> */}
-          
+
         </div>
         <div className="mx-auto max-w-2xl lg:text-left">
           <h2 className="text-base font-semibold leading-7 text-indigo-600">
-          Formulário cadastro do espaço - fest-fy.com
+            Formulário cadastro do espaço - fest-fy.com
           </h2>
           {/* <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to deploy your app fest-fy.com
@@ -121,7 +123,7 @@ export default function Home() {
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Formulário cadastro do espaço <br />
           </p> */}
-         
+
           <Formik
             initialValues={{
               eventName: '',
@@ -134,7 +136,9 @@ export default function Home() {
               city: '',
               state: '',
               postalCode: '',
-              capacity: '',
+              capacityTotal: '',
+              capacityStanding: '',
+              capacityDinner: '',
               eventType: '',
               accessibility: '',
               infrastructure: {
@@ -172,7 +176,15 @@ export default function Home() {
               city: Yup.string().required('Cidade é obrigatória'),
               state: Yup.string().required('Estado é obrigatório'),
               postalCode: Yup.string().required('CEP é obrigatório'),
-              capacity: Yup.number().required('Capacidade é obrigatória'),
+              capacityTotal: Yup.number()
+                .required('Capacidade é obrigatória')
+                .min(1, 'Deve ser pelo menos 1'),
+              capacityStanding: Yup.number()
+                .nullable()
+                .min(1, 'Deve ser pelo menos 1'),
+              capacityDinner: Yup.number()
+                .min(1, 'Deve ser pelo menos 1')
+                .nullable(),
               eventType: Yup.string().required('Tipo de evento é obrigatório'),
             })}
             onSubmit={(
@@ -197,7 +209,7 @@ export default function Home() {
                     name="eventName"
                     placeholder="Digite o nome do evento (ex.: Workshop de Criatividade em Grupo)"
                     onBlur={handleBlur}
-                    className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    className="mt-1 h-12 w-full border border-gray-500 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                   />
                   <ErrorMessage name="eventName" component="div" className="text-red-500 text-sm" />
                 </div>
@@ -440,17 +452,81 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mb-4 text-left">
-                  <label htmlFor="capacity" className="block text-gray-700">Capacidade de pessoas</label>
-                  <Field
-                    id="capacity"
-                    name="capacity"
-                    type="number"
-                    placeholder="Ex: 100"
-                    className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                  />
-                  <ErrorMessage name="capacity" component="div" className="text-red-500 text-sm" />
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">Capacidade</h3>
+                <div className="flex flex-wrap -mx-3">
+                
+                  <div className="w-full md:w-1/3 px-2 mb-4">
+                    <label htmlFor="capacityTotal" className="block text-gray-700">Total de pessoas</label>
+                    <Field
+                      id="capacityTotal"
+                      name="capacityTotal"
+                      type="number"
+                      placeholder="Ex: 100"
+                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    />
+                    <ErrorMessage name="capacityTotal" component="div" className="text-red-500 text-sm" />
+                  </div>
+                  <div className="w-full md:w-1/3 px-2 mb-4">
+                    <label htmlFor="capacityStanding" className="block text-gray-700">Em pé</label>
+                    <Field
+                      id="capacityStanding"
+                      name="capacityStanding"
+                      type="number"
+                      placeholder="Ex: 100"
+                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    />
+                    <ErrorMessage name="capacityStanding" component="div" className="text-red-500 text-sm" />
+                  </div>
+                  <div className="w-full md:w-1/3 px-2 mb-4">
+                    <label htmlFor="capacityDinner" className="block text-gray-700">Formato jantar</label>
+                    <Field
+                      id="capacityDinner"
+                      name="capacityDinner"
+                      type="number"
+                      placeholder="Ex: 100"
+                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    />
+                    <ErrorMessage name="capacityDinner" component="div" className="text-red-500 text-sm" />
+                  </div>
                 </div>
+
+
+                {/* <div className="flex flex-wrap -mx-3">
+                  <div className="w-full md:w-1/3 px-2 mb-4">
+                    <label htmlFor="capacity" className="block text-gray-700">Total de pessoas</label>
+                    <Field
+                      id="capacity"
+                      name="capacity"
+                      type="number"
+                      placeholder="Ex: 100"
+                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    />
+                    <ErrorMessage name="capacity" component="div" className="text-red-500 text-sm" />
+                  </div>
+                  <div className="w-full md:w-1/3 px-2 mb-4">
+                    <label htmlFor="postalCode" className="block text-gray-700">Em pé</label>
+                    <Field
+                      id="capacity"
+                      name="capacity"
+                      type="number"
+                      placeholder="Ex: 100"
+                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    />
+                    <ErrorMessage name="capacity" component="div" className="text-red-500 text-sm" />
+                  </div>
+                  <div className="w-full md:w-1/3 px-2 mb-4">
+                    <label htmlFor="postalCode" className="block text-gray-700">Formato jantar</label>
+                    <Field
+                      id="capacity"
+                      name="capacity"
+                      type="number"
+                      placeholder="Ex: 100"
+                      className="mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    />
+                    <ErrorMessage name="capacity" component="div" className="text-red-500 text-sm" />
+                  </div>
+
+                </div> */}
 
                 <div className="mb-4 text-left">
                   <label htmlFor="eventType" className="block text-gray-700">Tipo de Evento</label>
@@ -529,7 +605,9 @@ export default function Home() {
               </div>
 
               <div className="mt-4 border-t border-gray-200 pt-4">
-                <p className='text-gray-500'><span className="font-bold text-gray-900">Capacidade:</span> {event.capacity || "Sem capacidade"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Capacidade:</span> {event.capacityTotal || "Sem capacidade"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Capacidade público em pé:</span> {event.capacityStanding || "Sem capacidade"}</p>
+                <p className='text-gray-500'><span className="font-bold text-gray-900">Capacidade formato de janta:</span> {event.capacityDinner || "Sem capacidade"}</p>
                 <p className='text-gray-500'><span className="font-bold text-gray-900">Tipo de Evento:</span> {event.eventType || "Sem tipo de evento"}</p>
                 <p className='text-gray-500'><span className="font-bold text-gray-900">Acessibilidade:</span> {event.accessibility || "Não informado"}</p>
               </div>
